@@ -1,6 +1,6 @@
 {
 	"name": "Scratch Account Request System Webhooks",
-	"descriptionmsg": "scratch-confirmaccount-desc",
+	"descriptionmsg": "scratch-confirmaccount-webhooks-desc",
 	"author": ["Jacob G. (jvvg)"],
 	"url": "https://github.com/InternationalScratchWiki/scratch-confirmaccount-v3-webhooks",
 	"version": "0.1",
@@ -19,6 +19,7 @@
 		"ScratchConfirmAccountHooks::onAccountRequestSubmitted": "ScratchConfirmAccountWebhooksHooks::onAccountRequestSubmitted"
 	},
 	"config": {
-		
+		"ScratchAccountRequestWebhookUrl": "",
+		"ScratchAccountRequestWebhookEvents": ["onCreateAccount", "onAccountRequestAction", "onAccountRequestSubmitted"]
 	}
 }
