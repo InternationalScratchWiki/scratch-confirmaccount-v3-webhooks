@@ -1,0 +1,24 @@
+{
+	"name": "Scratch Account Request System Webhooks",
+	"descriptionmsg": "scratch-confirmaccount-desc",
+	"author": ["Jacob G. (jvvg)"],
+	"url": "https://github.com/InternationalScratchWiki/scratch-confirmaccount-v3-webhooks",
+	"version": "0.1",
+	"license-name": "GPL-2.0-or-later",
+	"MessagesDirs": {
+		"Scratch-ConfirmAccount-Webhooks": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"ScratchConfirmAccountWebhooksHooks": "src/ScratchConfirmAccountWebhooksHooks.php"
+	},
+	"Hooks": {
+		"ScratchConfirmAccountHooks::onCreateAccount": "ScratchConfirmAccountWebhooksHooks::onCreateAccount",
+		"ScratchConfirmAccountHooks::onAccountRequestAction": "ScratchConfirmAccountWebhooksHooks::onAccountRequestAction",
+		"ScratchConfirmAccountHooks::onAccountRequestSubmitted": "ScratchConfirmAccountWebhooksHooks::onAccountRequestSubmitted"
+	},
+	"config": {
+		
+	}
+}
