@@ -1,9 +1,9 @@
 <?php
 class ScratchConfirmAccountWebhooksHooks {
 	private static function invokeEventWebhook($event, $payload) {
-		global $wgScratchAccountRequestWebhookEvents, $wgScratchAccountRequestWebhookUrl;
+		global $wgScratchAccountRequestWebhookEvents, $wgScratchAccountRequestWebhookUrls;
 				
-		if (in_array($event, $wgScratchAccountRequestWebhookEvents)) {
+		if (!empty($wgScratchAccountRequestWebhookUrls[$event])) {			
 			$body = json_encode(
 				[
 					'embeds' => [
@@ -23,31 +23,32 @@ class ScratchConfirmAccountWebhooksHooks {
 			
 			$context = stream_context_create($opts);
 			
-			file_get_contents($wgScratchAccountRequestWebhookUrl, false, $context);
+			file_get_contents($wgScratchAccountRequestWebhookUrls[$event], false, $context);
 		}
 	}
 	
-	public static function onAccountRequestAction($accountRequest, $action, $actioningUsername, $comment) {
+	private static function urlForRequest($requestId) {
+		return SpecialPage::getTitleFor( 'ConfirmAccounts' )->getSubpage($requestId)->getFullURL('', '', PROTO_CURRENT);
+	}
+	
+	public static function onAccountRequestAction($accountRequest, $action, $actioningUsername, $comment) {		
 		self::invokeEventWebhook('onAccountRequestAction', [
-			'title' => 'Account request action: ' . wfMessage('scratch-confirmaccount-' . $action),
-			'author' => [
-				'name' => $actioningUsername
-			],
-			'description' => $comment . "\n\n" . '[View the request](https://jacobs-raspberrypi-2.local/wiki/Special:ConfirmAccounts/' . $accountRequest->id . ')'
+			'title' => wfMessage('scratch-confirmaccount-webhooks-action-title', wfMessage('scratch-confirmaccount-' . $action), $accountRequest->username, $actioningUsername ?? $accountRequest->username)->text(),
+			'description' => wfMessage('scratch-confirmaccount-webhooks-action-description', $comment, self::urlForRequest($accountRequest->id))->text()
 		]);
 	}
 	
 	public static function onCreateAccount($accountRequest, $actioningUsername) {
 		self::invokeEventWebhook('onCreateAccount', [
-			'title' => 'Account created',
-			'description' => 'The account ' . $accountRequest->username . ' has been created by ' . $actioningUsername
+			'title' => wfMessage('scratch-confirmaccount-webhooks-account-created-title', $accountRequest->username)->text(),
+			'description' => wfMessage('scratch-confirmaccount-webhooks-account-created-description', $accountRequest->username, $actioningUsername)->text()
 		]);
 	}
 	
 	public static function onAccountRequestSubmitted($requestId, $username, $requestNotes) {
 		self::invokeEventWebhook('onAccountRequestSubmitted', [
-			'title' => 'New account request',
-			'description' => 'The user ' . $username . ' has submitted a new account request with the following request notes:' . "\n" . $requestNotes . "\n\n" . '[View the request](https://jacobs-raspberrypi-2.local/wiki/Special:ConfirmAccounts/' . $requestId . ')'
+			'title' => wfMessage('scratch-confirmaccount-webhooks-request-created-title', $username)->text(),
+			'description' => wfMessage('scratch-confirmaccount-webhooks-request-created-description', $username, $requestNotes, self::urlForRequest($requestId))->text()
 		]);
 	}
 }

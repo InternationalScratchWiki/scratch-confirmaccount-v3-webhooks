@@ -19,7 +19,10 @@
 		"ScratchConfirmAccountHooks::onAccountRequestSubmitted": "ScratchConfirmAccountWebhooksHooks::onAccountRequestSubmitted"
 	},
 	"config": {
-		"ScratchAccountRequestWebhookUrl": "",
-		"ScratchAccountRequestWebhookEvents": ["onCreateAccount", "onAccountRequestAction", "onAccountRequestSubmitted"]
+		"ScratchAccountRequestWebhookUrls": {
+			"onCreateAccount": "",
+			"onAccountRequestAction": "",
+			"onAccountRequestSubmitted": ""
+		}
 	}
 }

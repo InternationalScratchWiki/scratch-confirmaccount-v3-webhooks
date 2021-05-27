@@ -1,3 +1,9 @@
 {
-	"scratch-confirmaccount-webhooks-desc": "Call a webhook when an action is taken on an account request"
+	"scratch-confirmaccount-webhooks-desc": "Call a webhook when an action is taken on an account request",
+	"scratch-confirmaccount-webhooks-action-title": "$1 on $2 by $3",
+	"scratch-confirmaccount-webhooks-action-description": "$1\n\n[View the request]($2)",
+	"scratch-confirmaccount-webhooks-account-created-title": "Account created for $1 by $2",
+	"scratch-confirmaccount-webhooks-account-created-description": "The account $1 has been created by $2",
+	"scratch-confirmaccount-webhooks-request-created-title": "New account request from $1",
+	"scratch-confirmaccount-webhooks-request-created-description": "The user $1 has submitted a new account request with the following request notes:\n$2\n\n[View the request]($3)"
 }
