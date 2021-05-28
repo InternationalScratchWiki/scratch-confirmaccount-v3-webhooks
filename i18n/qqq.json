@@ -1,0 +1,9 @@
+{
+	"scratch-confirmaccount-webhooks-desc": "Description of the extension",
+	"scratch-confirmaccount-webhooks-action-title": "Generic action webhook title. $1 is the action, $2 is the actioned username, $3 is the actor.",
+	"scratch-confirmaccount-webhooks-action-description": "Generic action webhook message. $1 is the description and $2 is the link to the request.",
+	"scratch-confirmaccount-webhooks-account-created-title": "Webhook message title for a new account. $1 is the account and $2 is the creator.",
+	"scratch-confirmaccount-webhooks-account-created-description": "Webhook message for an account being created. $1 is the account and $2 is the creator.",
+	"scratch-confirmaccount-webhooks-request-created-title": "Webhook message title for new account request. $1 is the username.",
+	"scratch-confirmaccount-webhooks-request-created-description": "Webhook message for new account request. $1 is the username, $2 is the request notes, $3 is the link to the request."
+}
