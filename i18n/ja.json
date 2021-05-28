@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"T-taku"
+		]
+	},
+	"scratch-confirmaccount-webhooks-desc": "アカウント申請が来た時にWebhookを呼び出す",
+	"scratch-confirmaccount-webhooks-action-title": "$3 が $2 で $1",
+	"scratch-confirmaccount-webhooks-action-description": "$1\n\n[申請を確認する]($2)",
+	"scratch-confirmaccount-webhooks-account-created-title": "$1 による $2 の作成",
+	"scratch-confirmaccount-webhooks-account-created-description": "$1 が $2 によって作成されました。",
+	"scratch-confirmaccount-webhooks-request-created-title": "$1 からの新しい申請",
+	"scratch-confirmaccount-webhooks-request-created-description": "[$1](https://scratch.mit.edu/users/$1) がアカウントを申請しました。\n申請文:\n$2\n\n[申請を確認する]($3)"
+}
