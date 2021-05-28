@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"ahmetlii"
+		]
+	},
+	"scratch-confirmaccount-webhooks-desc": "Bir hesap isteği üzerinde eylem olduğu zaman bir webhook çağırır",
+	"scratch-confirmaccount-webhooks-action-title": "$3 tarafından $2 üzerinde $1",
+	"scratch-confirmaccount-webhooks-action-description": "$1\n\n[İsteği görüntüle]($2)",
+	"scratch-confirmaccount-webhooks-account-created-title": "$1 için hesap, $2 tarafından oluşturuldu",
+	"scratch-confirmaccount-webhooks-account-created-description": "Hesap $1, $2 tarafından oluşturuldu",
+	"scratch-confirmaccount-webhooks-request-created-title": "$1'den yeni hesap isteği",
+	"scratch-confirmaccount-webhooks-request-created-description": "Kullanıcı $1, aşağıdaki istek notları ile yeni bir hesap isteği gönderdi:\n$2\n\n[İsteği gör]($3)"
+}
