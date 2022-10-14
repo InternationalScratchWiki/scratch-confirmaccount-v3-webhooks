@@ -1,9 +1,14 @@
 <?php
-class ScratchConfirmAccountWebhooksHooks {
+
+use ScratchConfirmAccount\Hook\AccountRequestActionHook;
+use ScratchConfirmAccount\Hook\AccountRequestSubmittedHook;
+use ScratchConfirmAccount\Hook\RequestedAccountCreatedHook;
+
+class ScratchConfirmAccountWebhooksHooks implements AccountRequestActionHook, AccountRequestSubmittedHook, RequestedAccountCreatedHook {
 	private static function invokeEventWebhook($event, $payload) {
-		global $wgScratchAccountRequestWebhookEvents, $wgScratchAccountRequestWebhookUrls;
-				
-		if (!empty($wgScratchAccountRequestWebhookUrls[$event])) {			
+		global $wgScratchAccountRequestWebhookUrls;
+
+		if (!empty($wgScratchAccountRequestWebhookUrls[$event])) {
 			$body = json_encode(
 				[
 					'embeds' => [
@@ -11,7 +16,7 @@ class ScratchConfirmAccountWebhooksHooks {
 					]
 				]
 			);
-			
+
 			$opts = ['http' => [
 				'method' => 'POST',
 				'header' => [
@@ -20,32 +25,32 @@ class ScratchConfirmAccountWebhooksHooks {
 				],
 				'content' => $body
 			]];
-			
+
 			$context = stream_context_create($opts);
-			
+
 			file_get_contents($wgScratchAccountRequestWebhookUrls[$event], false, $context);
 		}
 	}
-	
+
 	private static function urlForRequest($requestId) {
-		return SpecialPage::getTitleFor( 'ConfirmAccounts' )->getSubpage($requestId)->getFullURL('', '', PROTO_CURRENT);
+		return SpecialPage::getTitleFor('ConfirmAccounts')->getSubpage((string)$requestId)->getFullURL('', '', PROTO_CURRENT);
 	}
-	
-	public static function onAccountRequestAction($accountRequest, $action, $actioningUsername, $comment) {		
+
+	public function	onAccountRequestAction($accountRequest, string $action, ?string $actorUsername, string $comment) {
 		self::invokeEventWebhook('onAccountRequestAction', [
-			'title' => wfMessage('scratch-confirmaccount-webhooks-action-title', wfMessage('scratch-confirmaccount-' . $action), $accountRequest->username, $actioningUsername ?? $accountRequest->username)->text(),
+			'title' => wfMessage('scratch-confirmaccount-webhooks-action-title', wfMessage('scratch-confirmaccount-' . $action), $accountRequest->username, $actorUsername ?? $accountRequest->username)->text(),
 			'description' => wfMessage('scratch-confirmaccount-webhooks-action-description', $comment, self::urlForRequest($accountRequest->id))->text()
 		]);
 	}
-	
-	public static function onCreateAccount($accountRequest, $actioningUsername) {
+
+	public function onRequestedAccountCreated($accountRequest, string $actorUsername) {
 		self::invokeEventWebhook('onCreateAccount', [
 			'title' => wfMessage('scratch-confirmaccount-webhooks-account-created-title', $accountRequest->username)->text(),
-			'description' => wfMessage('scratch-confirmaccount-webhooks-account-created-description', $accountRequest->username, $actioningUsername)->text()
+			'description' => wfMessage('scratch-confirmaccount-webhooks-account-created-description', $accountRequest->username, $actorUsername)->text()
 		]);
 	}
-	
-	public static function onAccountRequestSubmitted($requestId, $username, $requestNotes) {
+
+	public function onAccountRequestSubmitted($requestId, string $username, string $requestNotes) {
 		self::invokeEventWebhook('onAccountRequestSubmitted', [
 			'title' => wfMessage('scratch-confirmaccount-webhooks-request-created-title', $username)->text(),
 			'description' => wfMessage('scratch-confirmaccount-webhooks-request-created-description', $username, $requestNotes, self::urlForRequest($requestId))->text()
