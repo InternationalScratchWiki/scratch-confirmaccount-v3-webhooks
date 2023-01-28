@@ -33,7 +33,7 @@ class ScratchConfirmAccountWebhooksHooks implements AccountRequestActionHook, Ac
 	}
 
 	private static function urlForRequest($requestId) {
-		return SpecialPage::getTitleFor('ConfirmAccounts')->getSubpage((string)$requestId)->getFullURL('', '', PROTO_CURRENT);
+		return SpecialPage::getTitleFor('ConfirmAccounts')->getSubpage((string)$requestId)->getFullUrlForRedirect();
 	}
 
 	public function	onAccountRequestAction($accountRequest, string $action, ?string $actorUsername, string $comment) {
