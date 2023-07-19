@@ -1,0 +1,9 @@
+{
+	"scratch-confirmaccount-webhooks-desc": "Вызывает вебхук при действии на запросе аккаунта",
+	"scratch-confirmaccount-webhooks-action-title": "Действие «$1» на $2 от $3",
+	"scratch-confirmaccount-webhooks-action-description": "$1\n\n[Посмотреть запрос]($2)",
+	"scratch-confirmaccount-webhooks-account-created-title": "Аккаунт $1 был создан $2",
+	"scratch-confirmaccount-webhooks-account-created-description": "Учётная запись для $1 была создана $2",
+	"scratch-confirmaccount-webhooks-request-created-title": "Новый запрос аккаунта от $1",
+	"scratch-confirmaccount-webhooks-request-created-description": "Пользователь $1 отправил новый запрос аккаунта. Заметки запроса:\n$2\n\n[Посмотреть запрос]($3)"
+}
